@@ -61,8 +61,17 @@ public class FoodController {
     @FXML
     void doCreaGrafo(ActionEvent event) {
     	txtResult.clear();
-    	txtResult.appendText("Creazione grafo...");
     	
+    	try {
+    	int calorie = Integer.parseInt(txtCalorie.getText());
+    	this.model.creaGrafo(calorie);
+    	txtResult.setText("Grafo creato!\n");
+    	txtResult.appendText("# Vertici " + this.model.getNumVertici() + "\n");
+    	txtResult.appendText("# Archi " + this.model.getNumArchi() + "\n");
+    	} catch (NumberFormatException e) {
+    		txtResult.setText("Per favore inserire un numero valido di calorie!\n");
+    		return;
+    	}
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
