@@ -64,7 +64,7 @@ public class FoodController {
     		// Qui possiamo chiamare il metodo ricorsivo per la ricerca del cammino
     		List<String> cammino = this.model.calcolaCamminoPesoMassimo(passi, verticePartenza);
     		
-    		txtResult.appendText("Il cammino di peso massimo vale : \n");
+    		txtResult.appendText("Il cammino di peso '" + this.model.calcolaPesoCammino(cammino) + "' vale : \n");
     		for (String s : cammino) {
     			txtResult.appendText(s + "\n");
     		}

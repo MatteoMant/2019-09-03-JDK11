@@ -40,22 +40,22 @@ public class Model {
 	}
 	
 	// Metodo che prepara la ricorsione
-	public List<String> calcolaCamminoPesoMassimo(int N, String verticePartenza){		
+	public List<String> calcolaCamminoPesoMassimo(int N, String verticePartenza) {		
 		this.best = null;
 		this.pesoMassimo = 0;
 		
 		List<String> parziale = new LinkedList<>();
 		parziale.add(verticePartenza);
 		
-		cerca(parziale, N);
+		cerca(parziale, 1, N);
 		
 		return best;
 	}
 	
 	// Metodo ricorsivo vero e proprio
-	public void cerca(List<String> parziale, int N) {
+	public void cerca(List<String> parziale, int livello, int N) {
 		// condizione di terminazione
-		if (parziale.size() == N) {
+		if (livello == N + 1) {
 			int pesoCammino = calcolaPesoCammino(parziale);
 			if (pesoCammino > this.pesoMassimo) {
 				this.pesoMassimo = pesoCammino;
@@ -67,10 +67,11 @@ public class Model {
 			}
 		}
 		
-		for (String s : this.grafo.vertexSet()) {
+		List<String> vicini = Graphs.neighborListOf(this.grafo, parziale.get(livello-1));
+		for (String s : vicini) {
 			if (!parziale.contains(s)) {
 				parziale.add(s);
-				cerca(parziale, N);
+				cerca(parziale, livello+1, N);
 				parziale.remove(s);
 			}
 		}
